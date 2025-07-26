@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    android:sharedUserId="android.uid.system"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
 
     <queries>
         <package android:name="com.gandiva.aidl.server" />

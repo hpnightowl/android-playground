@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Build
 import android.os.IBinder
+import android.os.UserHandle
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.runtime.getValue
@@ -76,12 +77,18 @@ class SensorDataLoggerViewModel @Inject constructor(
             action = SENSOR_DATA_LOGGER_BIND_ACTION
         }
 
+//        val userHandleClass = UserHandle::class.java
+//        val ofMethod = userHandleClass.getMethod("of", Int::class.java)
+//        val userHandle = ofMethod.invoke(null, "11") as UserHandle // added directly
+
+        val userHandle = UserHandle.of(11)
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            appContext.bindService(
+            appContext.bindServiceAsUser(
                 sensorServiceIntent,
+                serviceConnection,
                 Context.BIND_AUTO_CREATE,
-                appContext.mainExecutor,
-                serviceConnection
+                userHandle
             )
         } else {
             appContext.applicationContext.bindService(
